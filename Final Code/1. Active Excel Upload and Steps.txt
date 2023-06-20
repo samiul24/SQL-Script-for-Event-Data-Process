@@ -1,0 +1,31 @@
+Step 1: 
+	Download Microsoft Access Engine latest version like (2016 distributed) and install.
+	https://www.microsoft.com/en-us/download/details.aspx?id=54920
+
+Step 2:
+	Run all these below command
+	sp_configure 'show advanced options', 1;
+	RECONFIGURE;
+	GO
+	sp_configure 'ad hoc distributed queries', 1;
+	RECONFIGURE;
+	GO
+
+	EXEC sp_MSset_oledb_prop N'Microsoft.ACE.OLEDB.12.0', N'AllowInProcess', 1;
+	EXEC sp_MSset_oledb_prop N'Microsoft.ACE.OLEDB.12.0', N'DynamicParameters', 1;
+
+Step 3:
+	Rename all excel sheet or use that I am providing.
+
+Step 4: 
+	# Keep you Excel Sheet at this directory C:\AnalyticsTestData.xlsx
+	# Or If directory is different then Change "Database=YOUR DIRECTORY"
+	SELECT * 
+	FROM OPENROWSET('Microsoft.ACE.OLEDB.12.0',
+    	'Excel 12.0; Database=C:\AnalyticsTestData.xlsx', [AnalyticsEvents$]);
+
+Step 5: 
+	Run table script
+
+Step 6:
+	Run Data upload
